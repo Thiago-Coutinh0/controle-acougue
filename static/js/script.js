@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elementos do DOM
     const navLinks = document.querySelectorAll('.nav-menu a');
     const sections = document.querySelectorAll('.section');
 
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotalSpan = document.getElementById('cart-total');
     const saleQuantityInput = document.getElementById('sale-quantity');
 
-    // Dados do sistema
     let inventory = [];
     let totalSales = 0;
     let netProfit = 0;
@@ -32,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let dailyGoal = 0;
     let cart = [];
 
-    // Carregar dados do localStorage
     try {
         inventory = JSON.parse(localStorage.getItem('inventory')) || [];
         totalSales = parseFloat(localStorage.getItem('totalSales')) || 0;
@@ -44,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('localStorage indisponível, usando dados em memória.');
     }
 
-    // Reset diário
     const today = new Date().toDateString();
     if (lastSaleDate !== today) {
         totalSales = 0;
@@ -53,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
         saveData();
     }
 
-    // Funções principais
     function saveData() {
         try {
             localStorage.setItem('inventory', JSON.stringify(inventory));
@@ -130,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderInventory();
     }
 
-    // Navegação
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -142,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Cadastro de produto
     productForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('product-name').value.trim();
@@ -169,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Produto adicionado com sucesso!');
     });
 
-    // Meta diária
     goalForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const goal = parseFloat(document.getElementById('daily-goal').value);
@@ -183,8 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
         goalForm.reset();
         alert('Meta definida com sucesso!');
     });
-
-    // CARRINHO DE VENDAS
     function renderCart() {
         cartTable.innerHTML = '';
         let cartTotal = 0;
@@ -268,7 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Venda finalizada com sucesso!');
     });
 
-    // Inicialização
     renderInventory();
     renderSalesHistory();
     document.getElementById('home').classList.add('active');
